@@ -1,0 +1,3 @@
+import { pgTable, text, integer, timestamp } from 'drizzle-orm/pg-core'
+export const apiLimits = pgTable('api_limits', { id: text('id').primaryKey(), count: integer('count').notNull().default(1), expiresAt: timestamp('expires_at', { withTimezone: true }).notNull() })
+export const launches = pgTable('launches', { mint: text('mint').primaryKey(), signature: text('signature').notNull().unique(), creator: text('creator').notNull(), name: text('name').notNull(), symbol: text('symbol').notNull(), supply: text('supply').notNull(), decimals: integer('decimals').notNull(), createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow() })
