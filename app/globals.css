@@ -1,0 +1,80 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-space);
+  --font-mono: var(--font-plex);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--foreground);
+  --color-popover: var(--card);
+  --color-popover-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--background);
+  --color-secondary: var(--card);
+  --color-secondary-foreground: var(--foreground);
+  --color-muted: var(--card);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--card);
+  --color-accent-foreground: var(--primary);
+  --color-destructive: var(--primary);
+  --color-border: var(--border);
+  --color-input: var(--border);
+  --color-ring: var(--primary);
+  --color-signal: var(--signal);
+  --radius-sm: 3px;
+  --radius-md: 4px;
+  --radius-lg: 5px;
+  --radius-xl: 8px;
+}
+:root {
+  color-scheme: dark;
+  --background: #090a0b;
+  --foreground: #e6e7e9;
+  --card: #131517;
+  --primary: #ffa333;
+  --muted-foreground: color-mix(in srgb, var(--foreground) 62%, var(--background));
+  --signal: #83cba1;
+  --border: color-mix(in srgb, var(--foreground) 12%, transparent);
+  --radius: 4px;
+}
+@layer base {
+  * { @apply border-border outline-ring/50; }
+  html { scroll-behavior: smooth; }
+  body { @apply bg-background text-foreground font-sans antialiased; }
+  button:not(:disabled), [role='button']:not(:disabled) { cursor: pointer; }
+  ::selection { background: var(--primary); color: var(--background); }
+  :focus-visible { outline: 2px solid var(--primary); outline-offset: 5px; }
+}
+@layer components {
+  .shell { width: min(1440px, calc(100% - 96px)); margin-inline: auto; }
+  .eyebrow { @apply font-mono text-sm uppercase tracking-[0.12em] text-muted-foreground; }
+  .panel { @apply rounded-lg border border-border bg-card; }
+  .panel-top { @apply flex flex-wrap items-center justify-between border-b border-border px-6 py-4; }
+  .action { @apply inline-flex min-h-11 items-center justify-center gap-3 rounded-md border border-transparent bg-primary px-5 font-mono text-sm font-medium text-primary-foreground transition hover:brightness-110; }
+  .action-secondary { @apply border-border bg-card text-foreground hover:border-primary/50; }
+  .nav-link { @apply inline-flex items-center gap-2 border-b-2 border-transparent py-7 text-sm text-muted-foreground transition hover:text-foreground; }
+  .nav-link[data-active='true'] { @apply border-primary text-foreground; }
+  .status-dot { @apply inline-block size-1.5 shrink-0 rounded-full bg-signal; box-shadow: 0 0 8px color-mix(in srgb, var(--signal) 35%, transparent); }
+  .grid-surface { background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 44px 44px; }
+  .outline-type { color: transparent; -webkit-text-stroke: 1px color-mix(in srgb, var(--foreground) 45%, transparent); }
+  .tool-card { @apply flex flex-col rounded-md border border-border bg-card/65 transition hover:border-primary/45 hover:bg-card; }
+  .tool-card:hover .tool-arrow { @apply text-primary; transform: translate(2px,-2px); }
+  .lab-input { @apply min-h-11 w-full rounded-md border border-border bg-background px-3 py-2 font-mono text-sm text-foreground outline-none focus:border-primary; }
+  .data-row { @apply flex flex-col justify-between gap-2 border-b border-border py-4 text-sm sm:flex-row; }
+  .data-row:last-child { border-bottom: 0; }
+  .data-row dt { @apply shrink-0 text-muted-foreground; }
+  .data-row dd { @apply min-w-0 break-all font-mono sm:text-right; }
+  .page-heading { @apply text-balance text-4xl font-semibold tracking-tight sm:text-5xl; }
+  .terminal-lines { background: repeating-linear-gradient(transparent 0px, transparent 3px, color-mix(in srgb, var(--background) 12%, transparent) 3px, color-mix(in srgb, var(--background) 12%, transparent) 4px); }
+}
+.hero-core { mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent); }
+.reveal { animation: reveal .75s ease both; }
+@keyframes reveal { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes cursor { 50% { opacity: 0; } }
+.cursor { animation: cursor 1.3s steps(1) infinite; }
+@media (max-width: 767px) { .shell { width: calc(100% - 36px); } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }

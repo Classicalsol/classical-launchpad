@@ -1,0 +1,3 @@
+import Link from 'next/link'
+import { ArrowLeft } from 'lucide-react'
+export function LabHeading({ tag, title, description }: {tag:string; title:string; description:string}) { return <div className="flex flex-col gap-5 pb-9 pt-10 md:pt-14"><Link href="/" className="flex w-fit items-center gap-2 font-mono text-sm text-muted-foreground hover:text-primary"><ArrowLeft className="size-4"/>CONTROL CENTER</Link><div className="flex flex-col gap-3"><span className="eyebrow text-primary">{tag}</span><h1 className="page-heading">{title}</h1><p className="max-w-2xl text-base leading-relaxed text-muted-foreground">{description}</p></div></div> }
